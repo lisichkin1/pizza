@@ -6,16 +6,16 @@ import PizzaCard from './components/PizzaCard';
 
 function App() {
   return (
-    <div class="wrapper">
+    <div className="wrapper">
       <Header />
-      <main class="content">
-        <div class="container">
-          <section class="content__top">
+      <main className="content">
+        <div className="container">
+          <section className="content__top">
             <Categories />
             <Sort />
           </section>
-          <h2 class="content__title">Все пиццы</h2>
-          <section class="content__items">
+          <h2 className="content__title">Все пиццы</h2>
+          <section className="content__items">
             <PizzaCard title="Мексиканская" price={350} />
             <PizzaCard />
             <PizzaCard />
