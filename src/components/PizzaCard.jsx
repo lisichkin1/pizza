@@ -1,9 +1,13 @@
 import { useState } from 'react';
-function PizzaCard({ title, price, imageUrl }) {
+function PizzaCard({ title, price, imageUrl, sizes }) {
   const [countPizza, setCountPizza] = useState(0);
+  const [sizeActive, setSizeActive] = useState(0);
 
   const onClickAdd = () => {
     setCountPizza(countPizza + 1);
+  };
+  const onClickSize = (index) => {
+    setSizeActive(index);
   };
   return (
     <article className="pizza-block">
@@ -15,9 +19,15 @@ function PizzaCard({ title, price, imageUrl }) {
           <li>традиционное</li>
         </ul>
         <ul>
-          <li className="active">26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li>
+          {sizes.map((size, index) => {
+            return (
+              <li
+                onClick={() => onClickSize(index)}
+                className={sizeActive === index ? 'active' : ''}>
+                {size} см.
+              </li>
+            );
+          })}
         </ul>
       </div>
       <div className="pizza-block__bottom">

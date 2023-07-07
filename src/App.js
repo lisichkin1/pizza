@@ -17,7 +17,14 @@ function App() {
           <h2 className="content__title">Все пиццы</h2>
           <section className="content__items">
             {pizzas.map((item) => {
-              return <PizzaCard title={item.title} imageUrl={item.imageUrl} price={item.price} />;
+              return (
+                <PizzaCard
+                  title={item.title}
+                  imageUrl={item.imageUrl}
+                  price={item.price}
+                  sizes={item.sizes}
+                />
+              );
             })}
           </section>
         </div>
