@@ -3,7 +3,7 @@ import Header from './components/Header';
 import Categories from './components/Categories';
 import Sort from './components/Sort';
 import PizzaCard from './components/PizzaCard';
-
+import pizzas from './assets/pizza.json';
 function App() {
   return (
     <div className="wrapper">
@@ -16,14 +16,9 @@ function App() {
           </section>
           <h2 className="content__title">Все пиццы</h2>
           <section className="content__items">
-            <PizzaCard title="Мексиканская" price={350} />
-            <PizzaCard />
-            <PizzaCard />
-            <PizzaCard />
-            <PizzaCard />
-            <PizzaCard />
-            <PizzaCard />
-            <PizzaCard />
+            {pizzas.map((item) => {
+              return <PizzaCard title={item.title} imageUrl={item.imageUrl} price={item.price} />;
+            })}
           </section>
         </div>
       </main>

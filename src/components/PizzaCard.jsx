@@ -1,5 +1,5 @@
 import { useState } from 'react';
-function PizzaCard({ title, price }) {
+function PizzaCard({ title, price, imageUrl }) {
   const [countPizza, setCountPizza] = useState(0);
 
   const onClickAdd = () => {
@@ -7,11 +7,7 @@ function PizzaCard({ title, price }) {
   };
   return (
     <article className="pizza-block">
-      <img
-        className="pizza-block__image"
-        src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-        alt="Pizza"
-      />
+      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
