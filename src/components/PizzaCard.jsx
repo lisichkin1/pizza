@@ -1,6 +1,10 @@
 import { useState } from 'react';
 function PizzaCard({ title, price }) {
   const [countPizza, setCountPizza] = useState(0);
+
+  const onClickAdd = () => {
+    setCountPizza(countPizza + 1);
+  };
   return (
     <article className="pizza-block">
       <img
@@ -22,7 +26,7 @@ function PizzaCard({ title, price }) {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <button className="button button--outline button--add">
+        <button onClick={onClickAdd} className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -34,7 +38,7 @@ function PizzaCard({ title, price }) {
               fill="white"
             />
           </svg>
-          <span onClick={() => setCountPizza(countPizza + 1)}>Добавить</span>
+          <span>Добавить</span>
           <i>{countPizza}</i>
         </button>
       </div>
