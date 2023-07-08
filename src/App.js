@@ -17,7 +17,7 @@ function App() {
           <h2 className="content__title">Все пиццы</h2>
           <section className="content__items">
             {pizzas.map((item) => {
-              return <PizzaCard {...item} />;
+              return <PizzaCard key={item.id} {...item} />;
             })}
           </section>
         </div>
