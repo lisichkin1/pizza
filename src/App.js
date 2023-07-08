@@ -23,6 +23,7 @@ function App() {
                   imageUrl={item.imageUrl}
                   price={item.price}
                   sizes={item.sizes}
+                  types={item.types}
                 />
               );
             })}
