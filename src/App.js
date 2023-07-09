@@ -18,9 +18,13 @@ function App() {
   }, []);
   return (
     <div className="wrapper">
+      <Header />
       <main className="content">
         <div className="container">
-          <section className="content__top"></section>
+          <section className="content__top">
+            <Categories />
+            <Sort />
+          </section>
           <h2 className="content__title">Все пиццы</h2>
           <section className="content__items">
             {items.map((item) => {
