@@ -1,5 +1,5 @@
-@import '../variables';
-
+@import '../../scss/variables';
+@import '../../scss/libs/normalize';
 .categories {
   ul {
     display: flex;

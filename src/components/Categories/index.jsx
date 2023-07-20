@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styles from './Categories.module.scss';
 
 function Categories() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -8,14 +9,14 @@ function Categories() {
     setActiveIndex(index);
   };
   return (
-    <nav className="categories">
+    <nav className={styles.categories}>
       <ul>
         {categories.map((category, index) => {
           return (
             <li
               key={index}
               onClick={() => onClickCategory(index)}
-              className={activeIndex === index ? 'active' : ''}>
+              className={activeIndex === index ? styles.active : ''}>
               {category}
             </li>
           );
