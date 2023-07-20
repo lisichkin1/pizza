@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styles from './Sort.module.scss';
 
 function Sort() {
   const sortArr = ['популярности', 'цене', 'алфавиту'];
@@ -10,8 +11,8 @@ function Sort() {
     setOpenPopUp(false);
   };
   return (
-    <div className="sort">
-      <div className="sort__label">
+    <div className={styles.sort}>
+      <div className={styles.sort__label}>
         <svg
           width="10"
           height="6"
@@ -27,14 +28,14 @@ function Sort() {
         <span onClick={() => setOpenPopUp(!openPopUp)}>{sortName}</span>
       </div>
       {openPopUp && (
-        <div className="sort__popup">
+        <div className={styles.sort__popup}>
           <ul>
             {sortArr.map((item, index) => {
               return (
                 <li
                   key={index}
                   onClick={() => onClickSortItem(index)}
-                  className={sortActive === index ? 'active' : ''}>
+                  className={sortActive === index ? styles.active : ''}>
                   {item}
                 </li>
               );
