@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
-import logoSvg from '../assets/img/pizza-logo.svg';
+import logoSvg from '../../assets/img/pizza-logo.svg';
+import styles from './Header.module.scss';
 
 function Header() {
   return (
-    <header className="header">
-      <div className="container">
+    <header className={styles.header}>
+      <div className={[styles.container, 'container'].join(' ')}>
         <Link to="/">
-          <div className="header__logo">
+          <div className={styles['header__logo']}>
             <img width="38px" src={logoSvg} alt="Pizza logo" />
             <div>
               <h1>Pizza Shop</h1>
@@ -14,7 +15,7 @@ function Header() {
             </div>
           </div>
         </Link>
-        <div className="header__cart">
+        <div className={styles.header__cart}>
           <Link to="cart" className="button button--cart">
             <span>520 ₽</span>
             <div className="button__delimiter"></div>
