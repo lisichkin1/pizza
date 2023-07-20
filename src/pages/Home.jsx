@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
-import PizzaCard from '../components/PizzaBlock/index';
+import PizzaCard from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 
 function Home() {
