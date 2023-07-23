@@ -27,7 +27,7 @@ function Home() {
       <h2 className="content__title">Все пиццы</h2>
       <section className="content__items">
         {isLoading
-          ? [...new Array(8)].map((_, index) => <Skeleton key={index} />)
+          ? [...new Array(30)].map((_, index) => <Skeleton key={index} />)
           : items.map((item) => <PizzaCard key={item.id} {...item} />)}
       </section>
     </>
