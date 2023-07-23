@@ -15,7 +15,11 @@ function Home() {
   });
   useEffect(() => {
     setIsLoading(true);
-    fetch('https://64a9d0c38b9afaf4844b1769.mockapi.io/items?category=' + categoryId)
+    fetch(
+      `https://64a9d0c38b9afaf4844b1769.mockapi.io/items?${
+        categoryId > 0 ? `category=${categoryId}` : ''
+      }&sortBy=${sortType.sortProperty}&order=desc`,
+    )
       .then((res) => {
         return res.json();
       })
