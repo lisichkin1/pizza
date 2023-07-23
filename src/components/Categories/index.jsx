@@ -1,13 +1,10 @@
-import { useState } from 'react';
 import styles from './Categories.module.scss';
 
-function Categories() {
-  const [activeIndex, setActiveIndex] = useState(0);
+function Categories({ value, onClickCategory }) {
+  console.log(value);
 
   const categories = ['Все', 'Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые'];
-  const onClickCategory = (index) => {
-    setActiveIndex(index);
-  };
+
   return (
     <nav className={styles.categories}>
       <ul>
@@ -16,7 +13,7 @@ function Categories() {
             <li
               key={index}
               onClick={() => onClickCategory(index)}
-              className={activeIndex === index ? styles.active : ''}>
+              className={value === index ? styles.active : ''}>
               {category}
             </li>
           );
