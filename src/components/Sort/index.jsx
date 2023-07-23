@@ -3,9 +3,12 @@ import styles from './Sort.module.scss';
 
 function Sort({ type, onClickSort }) {
   const sortArr = [
-    { name: 'популярности', sortProperty: 'rating' },
-    { name: 'цене', sortProperty: 'price' },
-    { name: 'алфавиту', sortProperty: 'title' },
+    { name: 'Сначала популярные', sortProperty: 'rating' },
+    { name: 'Сначала непопулярные', sortProperty: '-rating' },
+    { name: 'Сначала дорогие', sortProperty: 'price' },
+    { name: 'Сначала недорогие', sortProperty: '-price' },
+    { name: 'По алфавиту А - Я', sortProperty: 'title' },
+    { name: 'По алфавиту Я - А', sortProperty: '-title' },
   ];
   const [openPopUp, setOpenPopUp] = useState(false);
 
@@ -27,7 +30,7 @@ function Sort({ type, onClickSort }) {
             fill="#2C2C2C"
           />
         </svg>
-        <b>Сортировка по:</b>
+        <b>Сортировка:</b>
         <span onClick={() => setOpenPopUp(!openPopUp)}>{type.name}</span>
       </div>
       {openPopUp && (
