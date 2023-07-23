@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import styles from './Sort.module.scss';
 
-function Sort() {
-  const sortArr = ['популярности', 'цене', 'алфавиту'];
+function Sort({ type, onClickSort }) {
+  const sortArr = [
+    { name: 'популярности', sortProperty: 'rating' },
+    { name: 'цене', sortProperty: 'price' },
+    { name: 'алфавиту', sortProperty: 'title' },
+  ];
   const [openPopUp, setOpenPopUp] = useState(false);
-  const [sortActive, setSortActive] = useState(0);
-  const sortName = sortArr[sortActive];
+
   const onClickSortItem = (index) => {
-    setSortActive(index);
+    onClickSort(index);
     setOpenPopUp(false);
   };
   return (
@@ -25,18 +28,18 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpenPopUp(!openPopUp)}>{sortName}</span>
+        <span onClick={() => setOpenPopUp(!openPopUp)}>{type.name}</span>
       </div>
       {openPopUp && (
         <div className={styles.sort__popup}>
           <ul>
-            {sortArr.map((item, index) => {
+            {sortArr.map((obj, index) => {
               return (
                 <li
                   key={index}
-                  onClick={() => onClickSortItem(index)}
-                  className={sortActive === index ? styles.active : ''}>
-                  {item}
+                  onClick={() => onClickSortItem(obj)}
+                  className={type.sortProperty === obj.sortProperty ? styles.active : ''}>
+                  {obj.name}
                 </li>
               );
             })}
