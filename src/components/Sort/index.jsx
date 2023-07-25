@@ -7,8 +7,8 @@ function Sort({ type, onClickSort }) {
     { name: 'Сначала непопулярные', sortProperty: '-rating' },
     { name: 'Сначала дорогие', sortProperty: 'price' },
     { name: 'Сначала недорогие', sortProperty: '-price' },
-    { name: 'По алфавиту А - Я', sortProperty: 'title' },
-    { name: 'По алфавиту Я - А', sortProperty: '-title' },
+    { name: 'По алфавиту А - Я', sortProperty: '-title' },
+    { name: 'По алфавиту Я - А', sortProperty: 'title' },
   ];
   const [openPopUp, setOpenPopUp] = useState(false);
 

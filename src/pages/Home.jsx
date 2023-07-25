@@ -15,10 +15,11 @@ function Home() {
   });
   useEffect(() => {
     setIsLoading(true);
+    const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
+    const sortBy = sortType.sortProperty.replace('-', '');
+    const category = categoryId > 0 ? `category=${categoryId}` : '';
     fetch(
-      `https://64a9d0c38b9afaf4844b1769.mockapi.io/items?${
-        categoryId > 0 ? `category=${categoryId}` : ''
-      }&sortBy=${sortType.sortProperty}&order=desc`,
+      `https://64a9d0c38b9afaf4844b1769.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`,
     )
       .then((res) => {
         return res.json();
