@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import logoSvg from '../../assets/img/pizza-logo.svg';
 import styles from './Header.module.scss';
-
+import Search from '../Search';
 function Header() {
   return (
     <header className={styles.header}>
@@ -15,6 +15,7 @@ function Header() {
             </div>
           </div>
         </Link>
+        <Search />
         <div className={styles.header__cart}>
           <Link to="cart" className="button button--cart">
             <span>520 ₽</span>
