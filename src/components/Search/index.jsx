@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Search.module.scss';
-function Search() {
+function Search({ searchValue, setSearchValue }) {
   return (
     <div className={styles.root}>
       <svg
@@ -31,7 +31,25 @@ function Search() {
           </g>
         </g>
       </svg>
-      <input className={styles.input} placeholder="Поиск пиццы..." />
+      <input
+        value={searchValue}
+        onChange={(event) => setSearchValue(event.target.value)}
+        className={styles.input}
+        placeholder="Поиск пиццы..."
+      />
+      {searchValue && (
+        <svg
+          onClick={() => setSearchValue('')}
+          className={styles.close}
+          id="Outlined"
+          viewBox="0 0 32 32"
+          xmlns="http://www.w3.org/2000/svg">
+          <title />
+          <g id="Fill">
+            <polygon points="28.71 4.71 27.29 3.29 16 14.59 4.71 3.29 3.29 4.71 14.59 16 3.29 27.29 4.71 28.71 16 17.41 27.29 28.71 28.71 27.29 17.41 16 28.71 4.71" />
+          </g>
+        </svg>
+      )}
     </div>
   );
 }
