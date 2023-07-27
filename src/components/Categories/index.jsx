@@ -1,8 +1,6 @@
 import styles from './Categories.module.scss';
 
 function Categories({ value, onClickCategory }) {
-  console.log(value);
-
   const categories = ['Все', 'Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые'];
 
   return (
