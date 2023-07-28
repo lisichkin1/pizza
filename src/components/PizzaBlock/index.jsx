@@ -1,48 +1,13 @@
-import { useState } from 'react';
 import styles from './Pizza-block.module.scss';
-function PizzaCard({ title, price, imageUrl, sizes, types }) {
-  const pizzaTypes = ['тонкое', 'традиционное'];
-  const [countPizza, setCountPizza] = useState(0);
-  const [sizeActive, setSizeActive] = useState(0);
-  const [typeActive, setTypeActive] = useState(0);
-
-  const onClickAdd = () => {
-    setCountPizza(countPizza + 1);
-  };
-
+function PizzaCard({ title, price, imageUrl, sizes, types, onClickCard }) {
   return (
-    <article className={styles['pizza-block']}>
+    <article className={styles['pizza-block']} onClick={onClickCard}>
       <img className={styles['pizza-block__image']} src={imageUrl} alt="Pizza" />
       <h4 className={styles['pizza-block__title']}>{title}</h4>
-      <div className={styles['pizza-block__selector']}>
-        <ul>
-          {types.map((type) => {
-            return (
-              <li
-                key={type}
-                onClick={() => setTypeActive(type)}
-                className={typeActive === type ? styles.active : ''}>
-                {pizzaTypes[type]}
-              </li>
-            );
-          })}
-        </ul>
-        <ul>
-          {sizes.map((size, index) => {
-            return (
-              <li
-                key={size}
-                onClick={() => setSizeActive(index)}
-                className={sizeActive === index ? styles.active : ''}>
-                {size} см.
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+
       <div className={styles['pizza-block__bottom']}>
         <div className={styles['pizza-block__price']}>от {price} ₽</div>
-        <button onClick={onClickAdd} className="button button--outline button--add">
+        <button className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -54,8 +19,7 @@ function PizzaCard({ title, price, imageUrl, sizes, types }) {
               fill="white"
             />
           </svg>
-          <span>Добавить</span>
-          <i>{countPizza}</i>
+          <span>Выбрать</span>
         </button>
       </div>
     </article>
