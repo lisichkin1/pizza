@@ -1,0 +1,74 @@
+@import '../../scss/variables';
+@import '../../scss/libs/normalize';
+.modal {
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal__content {
+  width: 50%;
+  height: 60%;
+  background-color: white;
+  border-radius: 45px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.left_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 55%;
+  height: 100%;
+}
+.right__content {
+  background-color: rgba(0, 0, 0, 0.03);
+  height: 100%;
+  width: 45%;
+  border-radius: 0 45px 45px 0;
+  padding: 40px;
+}
+.pizza_image {
+  width: 400px;
+}
+.pizza__selector {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
+  width: 100%;
+
+  ul {
+    display: flex;
+    flex: 1;
+    background-color: rgba(0, 0, 0, 0.06);
+    padding: 2px;
+    border-radius: 25px;
+    overflow: hidden;
+    &:first-of-type {
+      margin-bottom: 6px;
+    }
+
+    li {
+      padding: 6px;
+      flex: 1;
+      cursor: pointer;
+      font-weight: 600;
+      text-align: center;
+      font-size: 14px;
+      @include noselect();
+
+      &.active {
+        background: #ffffff;
+        box-shadow: 0px 0px 26px rgba(0, 0, 0, 0.6);
+        border-radius: 25px;
+        cursor: auto;
+      }
+    }
+  }
+}

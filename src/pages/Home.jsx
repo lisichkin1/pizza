@@ -4,6 +4,7 @@ import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaCard from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
+import Popup from '../components/PopupCard';
 
 function Home({ searchValue }) {
   const [items, setItems] = useState([]);
@@ -13,6 +14,7 @@ function Home({ searchValue }) {
     name: 'популярности',
     sortProperty: 'rating',
   });
+  const [selectedPizza, setSelectedPizza] = useState('');
   useEffect(() => {
     setIsLoading(true);
     const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
@@ -30,6 +32,9 @@ function Home({ searchValue }) {
       });
   }, [categoryId, sortType]);
   const skeletons = [...new Array(30)].map((_, index) => <Skeleton key={index} />);
+  const handlePizzaClick = (pizza) => {
+    setSelectedPizza(pizza);
+  };
   const pizzas = items
     .filter((item) => {
       if (item.title.toLowerCase().includes(searchValue.toLowerCase())) {
@@ -37,8 +42,9 @@ function Home({ searchValue }) {
       }
       return false;
     })
-    .map((item) => <PizzaCard key={item.id} {...item} />);
-  console.log(pizzas);
+    .map((item) => (
+      <PizzaCard key={item.id} {...item} onClickCard={() => handlePizzaClick(item)} />
+    ));
   return (
     <>
       <section className="content__top">
@@ -47,6 +53,7 @@ function Home({ searchValue }) {
       </section>
       <h2 className="content__title">Все пиццы</h2>
       <section className="content__items">{isLoading ? skeletons : pizzas}</section>
+      {selectedPizza && <Popup {...selectedPizza} />}
     </>
   );
 }
