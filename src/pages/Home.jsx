@@ -5,7 +5,7 @@ import Sort from '../components/Sort';
 import PizzaCard from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 
-function Home() {
+function Home({ searchValue }) {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
@@ -29,6 +29,16 @@ function Home() {
         setIsLoading(false);
       });
   }, [categoryId, sortType]);
+  const skeletons = [...new Array(30)].map((_, index) => <Skeleton key={index} />);
+  const pizzas = items
+    .filter((item) => {
+      if (item.title.toLowerCase().includes(searchValue.toLowerCase())) {
+        return true;
+      }
+      return false;
+    })
+    .map((item) => <PizzaCard key={item.id} {...item} />);
+  console.log(pizzas);
   return (
     <>
       <section className="content__top">
@@ -36,11 +46,7 @@ function Home() {
         <Sort type={sortType} onClickSort={(id) => setSortType(id)} />
       </section>
       <h2 className="content__title">Все пиццы</h2>
-      <section className="content__items">
-        {isLoading
-          ? [...new Array(30)].map((_, index) => <Skeleton key={index} />)
-          : items.map((item) => <PizzaCard key={item.id} {...item} />)}
-      </section>
+      <section className="content__items">{isLoading ? skeletons : pizzas}</section>
     </>
   );
 }
