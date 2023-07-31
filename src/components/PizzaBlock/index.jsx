@@ -1,10 +1,10 @@
 import styles from './Pizza-block.module.scss';
-function PizzaCard({ title, price, imageUrl, sizes, types, onClickCard }) {
+function PizzaCard({ title, price, imageUrl, sizes, types, description, onClickCard }) {
   return (
     <article className={styles['pizza-block']} onClick={onClickCard}>
       <img className={styles['pizza-block__image']} src={imageUrl} alt="Pizza" />
       <h4 className={styles['pizza-block__title']}>{title}</h4>
-
+      <p className={styles['pizza-block__description']}>{description}</p>
       <div className={styles['pizza-block__bottom']}>
         <div className={styles['pizza-block__price']}>от {price} ₽</div>
         <button className="button button--outline button--add">
