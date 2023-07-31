@@ -15,6 +15,7 @@ function Home({ searchValue }) {
     sortProperty: 'rating',
   });
   const [selectedPizza, setSelectedPizza] = useState('');
+  const [modalActive, setModalActive] = useState(false);
   useEffect(() => {
     setIsLoading(true);
     const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
@@ -34,6 +35,7 @@ function Home({ searchValue }) {
   const skeletons = [...new Array(30)].map((_, index) => <Skeleton key={index} />);
   const handlePizzaClick = (pizza) => {
     setSelectedPizza(pizza);
+    setModalActive(true);
   };
   const pizzas = items
     .filter((item) => {
@@ -53,7 +55,9 @@ function Home({ searchValue }) {
       </section>
       <h2 className="content__title">Все пиццы</h2>
       <section className="content__items">{isLoading ? skeletons : pizzas}</section>
-      {selectedPizza && <Popup {...selectedPizza} />}
+      {selectedPizza && (
+        <Popup {...selectedPizza} modalActive={modalActive} setModalActive={setModalActive} />
+      )}
     </>
   );
 }
