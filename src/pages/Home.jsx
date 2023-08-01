@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaCard from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Popup from '../components/PopupCard';
+import { AppContext } from '../App';
 
-function Home({ searchValue }) {
+function Home() {
+  const { searchValue } = useContext(AppContext);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
