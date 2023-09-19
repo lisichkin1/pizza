@@ -6,6 +6,7 @@ import PizzaCard from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Popup from '../components/PopupCard';
 import { AppContext } from '../App';
+import Pagination from '../components/Pagination';
 
 function Home() {
   const { searchValue } = useContext(AppContext);
@@ -18,13 +19,14 @@ function Home() {
   });
   const [selectedPizza, setSelectedPizza] = useState('');
   const [modalActive, setModalActive] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     setIsLoading(true);
     const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
     const sortBy = sortType.sortProperty.replace('-', '');
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     fetch(
-      `https://64a9d0c38b9afaf4844b1769.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`,
+      `https://64a9d0c38b9afaf4844b1769.mockapi.io/items?page=${currentPage}&limit=8&${category}&sortBy=${sortBy}&order=${order}`,
     )
       .then((res) => {
         return res.json();
@@ -33,7 +35,7 @@ function Home() {
         setItems(arr);
         setIsLoading(false);
       });
-  }, [categoryId, sortType]);
+  }, [categoryId, sortType, currentPage]);
   const skeletons = [...new Array(30)].map((_, index) => <Skeleton key={index} />);
   const handlePizzaClick = (pizza) => {
     setSelectedPizza(pizza);
@@ -60,6 +62,7 @@ function Home() {
       {selectedPizza && (
         <Popup {...selectedPizza} modalActive={modalActive} setModalActive={setModalActive} />
       )}
+      <Pagination onChangePage={(number) => setCurrentPage(number)} />
     </>
   );
 }

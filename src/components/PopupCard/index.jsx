@@ -53,6 +53,7 @@ function Popup({
                     onClick={() => setTypeActive(type)}
                     className={typeActive === type ? styles.active : ''}>
                     {pizzaTypes[type]}
+                    {console.log(type)}
                   </li>
                 );
               })}
