@@ -7,12 +7,17 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import Popup from '../components/PopupCard';
 import { AppContext } from '../App';
 import Pagination from '../components/Pagination';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCategoryId } from '../redux/slices/filterSlice';
 
 function Home() {
+  const dispatch = useDispatch();
+  const categoryId = useSelector((state) => state.filterSlice.categoryId);
+  console.log(categoryId);
   const { searchValue } = useContext(AppContext);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [categoryId, setCategoryId] = useState(0);
+  //const [categoryId, setCategoryId] = useState(0);
   const [sortType, setSortType] = useState({
     name: 'популярности',
     sortProperty: 'rating',
@@ -20,6 +25,11 @@ function Home() {
   const [selectedPizza, setSelectedPizza] = useState('');
   const [modalActive, setModalActive] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const onClickCategory = (id) => {
+    dispatch(setCategoryId(id));
+  };
+
   useEffect(() => {
     setIsLoading(true);
     const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
@@ -54,7 +64,7 @@ function Home() {
   return (
     <>
       <section className="content__top">
-        <Categories value={categoryId} onClickCategory={(id) => setCategoryId(id)} />
+        <Categories value={categoryId} onClickCategory={onClickCategory} />
         <Sort type={sortType} onClickSort={(id) => setSortType(id)} />
       </section>
       <h2 className="content__title">Все пиццы</h2>
