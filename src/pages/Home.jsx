@@ -13,15 +13,15 @@ import { setCategoryId } from '../redux/slices/filterSlice';
 function Home() {
   const dispatch = useDispatch();
   const categoryId = useSelector((state) => state.filterSlice.categoryId);
-  console.log(categoryId);
+  const sortType = useSelector((state) => state.filterSlice.sort.sortProperty);
+
   const { searchValue } = useContext(AppContext);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  //const [categoryId, setCategoryId] = useState(0);
-  const [sortType, setSortType] = useState({
-    name: 'популярности',
-    sortProperty: 'rating',
-  });
+  //const [sortType, setSortType] = useState({
+  // name: 'популярности',
+  //  sortProperty: 'rating',
+  // });
   const [selectedPizza, setSelectedPizza] = useState('');
   const [modalActive, setModalActive] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,8 +32,8 @@ function Home() {
 
   useEffect(() => {
     setIsLoading(true);
-    const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
-    const sortBy = sortType.sortProperty.replace('-', '');
+    const order = sortType.includes('-') ? 'asc' : 'desc';
+    const sortBy = sortType.replace('-', '');
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     fetch(
       `https://64a9d0c38b9afaf4844b1769.mockapi.io/items?page=${currentPage}&limit=8&${category}&sortBy=${sortBy}&order=${order}`,
@@ -65,7 +65,7 @@ function Home() {
     <>
       <section className="content__top">
         <Categories value={categoryId} onClickCategory={onClickCategory} />
-        <Sort type={sortType} onClickSort={(id) => setSortType(id)} />
+        <Sort />
       </section>
       <h2 className="content__title">Все пиццы</h2>
       <section className="content__items">{isLoading ? skeletons : pizzas}</section>

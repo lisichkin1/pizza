@@ -1,19 +1,22 @@
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from './Sort.module.scss';
-
-function Sort({ type, onClickSort }) {
-  const sortArr = [
-    { name: 'Сначала популярные', sortProperty: 'rating' },
-    { name: 'Сначала непопулярные', sortProperty: '-rating' },
-    { name: 'Сначала дорогие', sortProperty: 'price' },
-    { name: 'Сначала недорогие', sortProperty: '-price' },
-    { name: 'По алфавиту А - Я', sortProperty: '-title' },
-    { name: 'По алфавиту Я - А', sortProperty: 'title' },
-  ];
+import { setSort } from '../../redux/slices/filterSlice';
+const sortArr = [
+  { name: 'Сначала популярные', sortProperty: 'rating' },
+  { name: 'Сначала непопулярные', sortProperty: '-rating' },
+  { name: 'Сначала дорогие', sortProperty: 'price' },
+  { name: 'Сначала недорогие', sortProperty: '-price' },
+  { name: 'По алфавиту А - Я', sortProperty: '-title' },
+  { name: 'По алфавиту Я - А', sortProperty: 'title' },
+];
+function Sort() {
+  const dispatch = useDispatch();
+  const sort = useSelector((state) => state.filterSlice.sort);
   const [openPopUp, setOpenPopUp] = useState(false);
 
-  const onClickSortItem = (index) => {
-    onClickSort(index);
+  const onClickSortItem = (obj) => {
+    dispatch(setSort(obj));
     setOpenPopUp(false);
   };
   return (
@@ -31,7 +34,7 @@ function Sort({ type, onClickSort }) {
           />
         </svg>
         <b>Сортировка:</b>
-        <span onClick={() => setOpenPopUp(!openPopUp)}>{type.name}</span>
+        <span onClick={() => setOpenPopUp(!openPopUp)}>{sort.name}</span>
       </div>
       {openPopUp && (
         <div className={styles.sort__popup}>
@@ -41,7 +44,7 @@ function Sort({ type, onClickSort }) {
                 <li
                   key={index}
                   onClick={() => onClickSortItem(obj)}
-                  className={type.sortProperty === obj.sortProperty ? styles.active : ''}>
+                  className={sort.sortProperty === obj.sortProperty ? styles.active : ''}>
                   {obj.name}
                 </li>
               );
