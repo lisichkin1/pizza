@@ -8,24 +8,25 @@ import Popup from '../components/PopupCard';
 import { AppContext } from '../App';
 import Pagination from '../components/Pagination';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId } from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
 import axios from 'axios';
 
 function Home() {
   const dispatch = useDispatch();
-  const { categoryId, sort } = useSelector((state) => state.filterSlice);
+  const { categoryId, sort, currentPage } = useSelector((state) => state.filterSlice);
   const sortType = sort.sortProperty;
   const { searchValue } = useContext(AppContext);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPizza, setSelectedPizza] = useState('');
   const [modalActive, setModalActive] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
 
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
   };
-
+  const onChangePage = (num) => {
+    dispatch(setCurrentPage(num));
+  };
   useEffect(() => {
     setIsLoading(true);
     const order = sortType.includes('-') ? 'asc' : 'desc';
@@ -66,7 +67,7 @@ function Home() {
       {selectedPizza && (
         <Popup {...selectedPizza} modalActive={modalActive} setModalActive={setModalActive} />
       )}
-      <Pagination onChangePage={(number) => setCurrentPage(number)} />
+      <Pagination onChangePage={(number) => onChangePage(number)} />
     </>
   );
 }
