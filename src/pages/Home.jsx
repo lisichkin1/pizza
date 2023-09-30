@@ -12,16 +12,11 @@ import { setCategoryId } from '../redux/slices/filterSlice';
 
 function Home() {
   const dispatch = useDispatch();
-  const categoryId = useSelector((state) => state.filterSlice.categoryId);
-  const sortType = useSelector((state) => state.filterSlice.sort.sortProperty);
-
+  const { categoryId, sort } = useSelector((state) => state.filterSlice);
+  const sortType = sort.sortProperty;
   const { searchValue } = useContext(AppContext);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  //const [sortType, setSortType] = useState({
-  // name: 'популярности',
-  //  sortProperty: 'rating',
-  // });
   const [selectedPizza, setSelectedPizza] = useState('');
   const [modalActive, setModalActive] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
