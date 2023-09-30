@@ -40,7 +40,7 @@ function Home() {
         setIsLoading(false);
       });
   }, [categoryId, sortType, currentPage]);
-  const skeletons = [...new Array(30)].map((_, index) => <Skeleton key={index} />);
+  const skeletons = [...new Array(8)].map((_, index) => <Skeleton key={index} />);
   const handlePizzaClick = (pizza) => {
     setSelectedPizza(pizza);
     setModalActive(true);

@@ -7,6 +7,7 @@ function Search() {
   const { setSearchValue } = useContext(AppContext);
   const inputRef = useRef();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateSearchValue = useCallback(
     debounce((value) => {
       setSearchValue(value);
