@@ -9,6 +9,7 @@ import { AppContext } from '../App';
 import Pagination from '../components/Pagination';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId } from '../redux/slices/filterSlice';
+import axios from 'axios';
 
 function Home() {
   const dispatch = useDispatch();
@@ -30,14 +31,12 @@ function Home() {
     const order = sortType.includes('-') ? 'asc' : 'desc';
     const sortBy = sortType.replace('-', '');
     const category = categoryId > 0 ? `category=${categoryId}` : '';
-    fetch(
-      `https://64a9d0c38b9afaf4844b1769.mockapi.io/items?page=${currentPage}&limit=8&${category}&sortBy=${sortBy}&order=${order}`,
-    )
+    axios
+      .get(
+        `https://64a9d0c38b9afaf4844b1769.mockapi.io/items?page=${currentPage}&limit=8&${category}&sortBy=${sortBy}&order=${order}`,
+      )
       .then((res) => {
-        return res.json();
-      })
-      .then((arr) => {
-        setItems(arr);
+        setItems(res.data);
         setIsLoading(false);
       });
   }, [categoryId, sortType, currentPage]);
