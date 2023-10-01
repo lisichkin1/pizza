@@ -17,6 +17,7 @@ function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = useRef(false);
+  const isMounted = useRef(false);
   const { categoryId, sort, currentPage } = useSelector((state) => state.filterSlice);
   const sortType = sort.sortProperty;
   const { searchValue } = useContext(AppContext);
@@ -45,7 +46,7 @@ function Home() {
         setIsLoading(false);
       });
   };
-
+  //если был первый рендер, то проверяем url параметры и сохраняем в redux
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
@@ -59,22 +60,24 @@ function Home() {
       isSearch.current = true;
     }
   }, []);
-
+  //если был первый рендер, то запрашиваем пиццы
   useEffect(() => {
     if (!isSearch.current) {
       fetchPizzas();
     }
     isSearch.current = false;
   }, [categoryId, sortType, currentPage, searchValue]);
-
+  //если изменили пармаетры и был первый рендер
   useEffect(() => {
-    const queryString = qs.stringify({
-      sortProperty: sort.sortProperty,
-      categoryId,
-      currentPage,
-    });
-    navigate(`?${queryString}`);
-    console.log(queryString);
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortProperty: sort.sortProperty,
+        categoryId,
+        currentPage,
+      });
+      navigate(`?${queryString}`);
+    }
+    isMounted.current = true;
   }, [categoryId, sort.sortProperty, currentPage]);
 
   const skeletons = [...new Array(8)].map((_, index) => <Skeleton key={index} />);
