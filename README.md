@@ -12,3 +12,4 @@
 - React Skeleton
 - Redux Toolkit
 - lodash
+- qs
