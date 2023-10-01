@@ -1,18 +1,22 @@
 import React, { useContext } from 'react';
 import { useEffect, useState } from 'react';
+import { AppContext } from '../App';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import qs from 'qs';
 import Categories from '../components/Categories';
-import Sort from '../components/Sort';
+import Sort, { sortArr } from '../components/Sort';
 import PizzaCard from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Popup from '../components/PopupCard';
-import { AppContext } from '../App';
 import Pagination from '../components/Pagination';
-import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
-import axios from 'axios';
 
 function Home() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { categoryId, sort, currentPage } = useSelector((state) => state.filterSlice);
   const sortType = sort.sortProperty;
   const { searchValue } = useContext(AppContext);
@@ -41,6 +45,28 @@ function Home() {
         setIsLoading(false);
       });
   }, [categoryId, sortType, currentPage]);
+
+  useEffect(() => {
+    const queryString = qs.stringify({
+      sortProperty: sort.sortProperty,
+      categoryId,
+      currentPage,
+    });
+    navigate(`?${queryString}`);
+    console.log(queryString);
+  }, [categoryId, sort.sortProperty, currentPage]);
+
+  useEffect(() => {
+    const params = qs.parse(location.search.substring(1));
+    const sort = sortArr.find((obj) => obj.sortProperty === params.sortProperty);
+    dispatch(
+      setFilters({
+        ...params,
+        sort,
+      }),
+    );
+  }, [location.search]);
+
   const skeletons = [...new Array(8)].map((_, index) => <Skeleton key={index} />);
   const handlePizzaClick = (pizza) => {
     setSelectedPizza(pizza);
