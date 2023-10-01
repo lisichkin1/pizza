@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { useEffect, useState } from 'react';
 import { AppContext } from '../App';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,7 +16,7 @@ import Pagination from '../components/Pagination';
 function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
+  const isSearch = useRef(false);
   const { categoryId, sort, currentPage } = useSelector((state) => state.filterSlice);
   const sortType = sort.sortProperty;
   const { searchValue } = useContext(AppContext);
@@ -31,7 +31,7 @@ function Home() {
   const onChangePage = (num) => {
     dispatch(setCurrentPage(num));
   };
-  useEffect(() => {
+  const fetchPizzas = () => {
     setIsLoading(true);
     const order = sortType.includes('-') ? 'asc' : 'desc';
     const sortBy = sortType.replace('-', '');
@@ -44,7 +44,28 @@ function Home() {
         setItems(res.data);
         setIsLoading(false);
       });
-  }, [categoryId, sortType, currentPage]);
+  };
+
+  useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+      const sort = sortArr.find((obj) => obj.sortProperty === params.sortProperty);
+      dispatch(
+        setFilters({
+          ...params,
+          sort,
+        }),
+      );
+      isSearch.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isSearch.current) {
+      fetchPizzas();
+    }
+    isSearch.current = false;
+  }, [categoryId, sortType, currentPage, searchValue]);
 
   useEffect(() => {
     const queryString = qs.stringify({
@@ -55,17 +76,6 @@ function Home() {
     navigate(`?${queryString}`);
     console.log(queryString);
   }, [categoryId, sort.sortProperty, currentPage]);
-
-  useEffect(() => {
-    const params = qs.parse(location.search.substring(1));
-    const sort = sortArr.find((obj) => obj.sortProperty === params.sortProperty);
-    dispatch(
-      setFilters({
-        ...params,
-        sort,
-      }),
-    );
-  }, [location.search]);
 
   const skeletons = [...new Array(8)].map((_, index) => <Skeleton key={index} />);
   const handlePizzaClick = (pizza) => {
